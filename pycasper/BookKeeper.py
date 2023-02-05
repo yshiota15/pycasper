@@ -153,15 +153,26 @@ class BookKeeper():
       self.tensorboard = None
 
   def _set_seed(self):
-    ## seed numpy and torch
-    random.seed(self.args.seed)
-    np.random.seed(self.args.seed)
-    torch.manual_seed(self.args.seed)
-    torch.cuda.manual_seed_all(self.args.seed)
-    torch.cuda.manual_seed(self.args.seed)
-    torch.backends.cudnn.deterministic = True
-    torch.backends.cudnn.benchmark = False
-    os.environ['PYTHONHASHSEED'] = str(self.args.seed)
+    if hasattr(self, 'args'):
+      ## seed numpy and torch
+      random.seed(self.args.seed)
+      np.random.seed(self.args.seed)
+      torch.manual_seed(self.args.seed)
+      torch.cuda.manual_seed_all(self.args.seed)
+      torch.cuda.manual_seed(self.args.seed)
+      torch.backends.cudnn.deterministic = True
+      torch.backends.cudnn.benchmark = False
+      os.environ['PYTHONHASHSEED'] = str(self.args.seed)
+    else:
+      ## seed numpy and torch
+      random.seed(self.seed)
+      np.random.seed(self.seed)
+      torch.manual_seed(self.seed)
+      torch.cuda.manual_seed_all(self.seed)
+      torch.cuda.manual_seed(self.seed)
+      torch.backends.cudnn.deterministic = True
+      torch.backends.cudnn.benchmark = False
+      os.environ['PYTHONHASHSEED'] = str(self.seed)
     
   '''
   Stuff to do for a new experiment
